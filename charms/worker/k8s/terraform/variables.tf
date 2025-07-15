@@ -73,3 +73,12 @@ variable "expose" {
     error_message = "If provided, expose must only contain the keys: cidrs, endpoints, spaces."
   }
 }
+
+variable "networks" {
+  description = "Mapping of network to spaces."
+  type = object({
+    default = optional(string)
+    management = optional(string)
+  })
+  default = null
+}

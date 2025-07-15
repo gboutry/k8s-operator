@@ -19,11 +19,25 @@ resource "juju_application" "k8s" {
     # if var.expose.endpoints exists, expose via endpoints
     endpoints = try(var.expose.endpoints, null)
     # if var.expose.spaces exists, expose via spaces
-    spaces    = try(var.expose.spaces, null)
+    spaces = try(var.expose.spaces, null)
   }
 
-  config      = var.config
-  constraints = var.constraints
-  units       = var.units
-  resources   = var.resources
+  config            = var.config
+  constraints       = var.constraints
+  units             = var.units
+  resources         = var.resources
+  endpoint_bindings = local.endpoint_bindings
+}
+
+locals {
+  bindings = {
+    default : [null],
+    management : ["k8s-cluster", "kube-control"]
+  }
+  endpoint_bindings = var.networks != null ? flatten([
+    for network, bindings in local.bindings : [
+      for binding in bindings : { space = var.networks[network], endpoint = binding } if var.networks[network] != null
+    ]
+    ]
+  ) : null
 }
