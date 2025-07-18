@@ -52,8 +52,8 @@ variable "revision" {
   default     = null
 }
 
-variable "units" {
-  description = "Number of units to deploy"
-  type        = number
-  default     = 1
+variable "machines" {
+  description = "Machines to deploy to."
+  type        = set(string)
+  default     = []
 }

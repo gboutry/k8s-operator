@@ -14,6 +14,6 @@ resource "juju_application" "k8s_worker" {
 
   config      = var.config
   constraints = var.constraints
-  units       = var.units
+  machines    = var.machines
   resources   = var.resources
 }

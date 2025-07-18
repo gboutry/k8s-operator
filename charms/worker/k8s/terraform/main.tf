@@ -24,7 +24,7 @@ resource "juju_application" "k8s" {
 
   config            = var.config
   constraints       = var.constraints
-  units             = var.units
+  machines          = var.machines
   resources         = var.resources
   endpoint_bindings = local.endpoint_bindings
 }
